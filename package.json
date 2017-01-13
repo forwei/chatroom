@@ -1,0 +1,38 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": "chatroom",
+  "main": "src/index.js",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "react-transform-hmr": "^1.0.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server --progress --colors --profile --hot --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forwei/chatroom.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "forwei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/forwei/chatroom/issues"
+  },
+  "homepage": "https://github.com/forwei/chatroom#readme"
+}
