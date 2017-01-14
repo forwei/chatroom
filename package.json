@@ -20,7 +20,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --profile --hot --inline"
+    "dev": "node_modules/.bin/webpack-dev-server --progress --colors --profile --hot --inline"
   },
   "repository": {
     "type": "git",
