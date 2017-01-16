@@ -1,9 +1,60 @@
 import React from 'react'
+import ReactDOM from "react-dom"
 
+
+class ScrollBar extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+		}
+		this.barHeight = 0
+		this.barMargin = 0
+	}
+
+	handleParentOver(event) {
+		
+	}
+
+	handleParentOut(event) {
+		
+	}
+
+	componentWillMount() {
+		
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		let bili = this.props.containerHeight / this.props.height
+		this.barHeight = this.props.height / bili
+		if(this.barHeight > this.props.height) 
+			this.barHeight = 0
+		this.barMargin = Math.abs(this.props.scrollTop) / bili
+	}
+
+	componentDidMount() {
+		let parent = ReactDOM.findDOMNode(this).parentNode
+		parent.addEventListener('mouseover', this.handleParentOver)
+		parent.addEventListener('mouseout', this.handleParentOut)
+	}
+
+	componentWillUnmount() {
+		let parent = ReactDOM.findDOMNode(this).parentNode
+		parent.removeEventListener('mouseover', this.handleParentOver)
+		parent.removeEventListener('mouseout', this.handleParentOut)
+	}
+
+	render() {
+		return(
+			<div style={{position: 'absolute', right: 0, top: 0, bottom: 0, width: 5, background: 'rgba(0,0,0,.1)', borderRadius: 5}}>
+				<div style={{height: this.barHeight, background: 'rgba(0,0,0,.1)', marginTop: this.barMargin, transition: 'margin-top 300ms'}} />
+			</div>
+		)
+	}
+}
 
 export default class ScrollArea extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			scrollTop: 0
 		}
@@ -39,9 +90,8 @@ export default class ScrollArea extends React.Component {
 		this.computeSizes()
 	}
 
-	componentWillUpdate() {
+	componentWillUpdate(nextProps, nextState) {
 		this.computeSizes()
-		//console.log('update')
 	}
 
 	computeSizes() {
@@ -92,6 +142,7 @@ export default class ScrollArea extends React.Component {
 					{childrens}
 					<div style={{height: this.bottomHeight}} />
 				</div>
+				<ScrollBar containerHeight={this.containerHeight} scrollTop={this.state.scrollTop} height={this.props.height} />
 			</div>
 		)
 	}
@@ -101,7 +152,8 @@ function getStyles(props) {
 	return {
 		wrapper: {
 			height: props.height,
-			overflow: 'hidden'
+			overflow: 'hidden',
+			position: 'relative'
 		}
 	}
 }
