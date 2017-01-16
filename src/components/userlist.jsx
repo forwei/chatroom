@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from "react-dom"
+import ScrollArea from './scrollarea'
 
 class UserItem extends React.Component {
 	constructor(props) {
@@ -27,7 +28,7 @@ class UserItem extends React.Component {
 			onMouseLeave={this.handleMouseLeave.bind(this)}
 			onMouseEnter={this.handleMouseEnter.bind(this)}
 			style={styles.item}>
-			<span>游客98206128</span></div>
+			<span>游客{this.props.name}</span></div>
 		)
 	}
 }
@@ -50,23 +51,44 @@ export default class UserList extends React.Component{
 					<input type="text" style={styles.searchbtn} />
 					<span>在线</span>
 				</div>
-				<div>
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
-					<UserItem />
+				<div style={{height: 200, overflow: 'hidden'}}>
+					<ScrollArea itemHeight={24} height={200}>
+					<UserItem name="1" />
+					<UserItem name="2" />
+					<UserItem name="3" />
+					<UserItem name="4" />
+					<UserItem name="5" />
+					<UserItem name="6" />
+					<UserItem name="7" />
+					<UserItem name="8" />
+					<UserItem name="9" />
+					<UserItem name="10" />
+					<UserItem name="11" />
+					<UserItem name="12" />
+					<UserItem name="13" />
+					<UserItem name="14" />
+					<UserItem name="15" />
+					<UserItem name="16" />
+					<UserItem name="17" />
+					<UserItem name="18" />
+					<UserItem name="19" />
+					<UserItem name="20" />
+					<UserItem name="21" />
+					<UserItem name="22" />
+					<UserItem name="23" />
+					<UserItem name="24" />
+					<UserItem name="25" />
+					<UserItem name="26" />
+					<UserItem name="27" />
+					<UserItem name="28" />
+					<UserItem name="29" />
+					<UserItem name="30" />
+					<UserItem name="31" />
+					<UserItem name="32" />
+					<UserItem name="33" />
+					<UserItem name="34" />
+					<UserItem name="35" />
+					</ScrollArea>
 				</div>
 			</div>
 		)
