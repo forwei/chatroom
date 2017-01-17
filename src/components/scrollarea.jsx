@@ -1,56 +1,7 @@
 import React from 'react'
 import ReactDOM from "react-dom"
+import ScrollBar from './scrollbar'
 
-
-class ScrollBar extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-		}
-		this.barHeight = 0
-		this.barMargin = 0
-	}
-
-	handleParentOver(event) {
-		
-	}
-
-	handleParentOut(event) {
-		
-	}
-
-	componentWillMount() {
-		
-	}
-
-	componentWillUpdate(nextProps, nextState) {
-		let bili = this.props.containerHeight / this.props.height
-		this.barHeight = this.props.height / bili
-		if(this.barHeight > this.props.height) 
-			this.barHeight = 0
-		this.barMargin = Math.abs(this.props.scrollTop) / bili
-	}
-
-	componentDidMount() {
-		let parent = ReactDOM.findDOMNode(this).parentNode
-		parent.addEventListener('mouseover', this.handleParentOver)
-		parent.addEventListener('mouseout', this.handleParentOut)
-	}
-
-	componentWillUnmount() {
-		let parent = ReactDOM.findDOMNode(this).parentNode
-		parent.removeEventListener('mouseover', this.handleParentOver)
-		parent.removeEventListener('mouseout', this.handleParentOut)
-	}
-
-	render() {
-		return(
-			<div style={{position: 'absolute', right: 0, top: 0, bottom: 0, width: 5, background: 'rgba(0,0,0,.1)', borderRadius: 5}}>
-				<div style={{height: this.barHeight, background: 'rgba(0,0,0,.1)', marginTop: this.barMargin, transition: 'margin-top 300ms'}} />
-			</div>
-		)
-	}
-}
 
 export default class ScrollArea extends React.Component {
 	constructor(props) {
@@ -87,18 +38,29 @@ export default class ScrollArea extends React.Component {
 	}
 
 	componentWillMount() {
-		this.computeSizes()
+		this.containerHeight = this.props.children.length * this.props.itemHeight
+		this.showCount = Math.ceil(this.props.height / this.props.itemHeight)
+		this.computeSizes(this.props)
 	}
 
 	componentWillUpdate(nextProps, nextState) {
-		this.computeSizes()
+		this.computeSizes(nextProps)
 	}
 
-	computeSizes() {
-		this.containerHeight = this.props.children.length * this.props.itemHeight
-		this.showIndex = Math.floor(Math.abs((this.state.scrollTop) / this.props.itemHeight))
+	componentWillReceiveProps(nextProps) {
+		this.containerHeight = nextProps.children.length * nextProps.itemHeight
+		this.showCount = Math.ceil(nextProps.height / nextProps.itemHeight)
 
-		this.showCount = Math.ceil(this.props.height / this.props.itemHeight)
+		let maxBottom = this.containerHeight - nextProps.height
+		if(maxBottom > 0 && Math.abs(this.state.scrollTop) > maxBottom){
+			this.state.scrollTop = -maxBottom
+		}else if(maxBottom < 0){
+			this.state.scrollTop = 0
+		}
+	}
+
+	computeSizes(props) {
+		this.showIndex = Math.floor(Math.abs((this.state.scrollTop) / props.itemHeight))
 
 		if(this.showIndex < 2){
 			this.showIndex = 0
@@ -106,16 +68,16 @@ export default class ScrollArea extends React.Component {
 			this.showIndex -= 2
 			this.showCount += 2
 		}
-		this.topHeight = this.showIndex * this.props.itemHeight
+		this.topHeight = this.showIndex * props.itemHeight
 
-		if((this.showIndex + this.showCount) >= this.props.children.length){
+		if((this.showIndex + this.showCount) >= props.children.length){
 			this.bottomHeight = 0
 		}else{
-			let pel = Math.min(this.props.children.length - (this.showIndex + this.showCount), 2)
+			let pel = Math.min(props.children.length - (this.showIndex + this.showCount), 2)
 			this.showCount += pel
-			this.bottomHeight = this.containerHeight - ((this.showIndex + this.showCount) * this.props.itemHeight)
+			this.bottomHeight = this.containerHeight - ((this.showIndex + this.showCount) * props.itemHeight)
 		}
-		
+	
 	}
 
 	render() {
