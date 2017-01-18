@@ -28,4 +28,16 @@ ul, ol {
 body {
   font-size: 15px;
   line-height: 24px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  min-width: 1200px
+}
+
+#app{
+  height:100%;
+  width: 100%;
+  position: absolute;
 }

@@ -58,19 +58,19 @@ export default class UserList extends React.Component{
 
 	render() {
 
-		const styles = getStyles()
+		const styles = getStyles(null, this.props)
 
 		return (
 			<div id="userlist" style={styles.root}>
 				<div style={styles.headwrap}>
 					<span>在线会员</span>
 				</div>
-				<div>
+				<div style={{height: 25}}>
 					<input ref="val" type="text" style={styles.searchbtn} />
 					<span onClick={this.addUser.bind(this)}>在线</span>
 				</div>
-				<div style={{height: 200, overflow: 'hidden'}}>
-					<ScrollArea itemHeight={24} height={200}>
+				<div style={{height: this.props.height - 25 - 32, overflow: 'hidden'}}>
+					<ScrollArea itemHeight={24} height={this.props.height - 25 - 32}>
 					{
 						this.state.users.map((user, inx) => {
 							return <UserItem key={inx} name={user} inx={inx} onClick={this.removeUser.bind(this)} />
@@ -86,12 +86,13 @@ export default class UserList extends React.Component{
   }
 }
 
-function getStyles(state) {
+function getStyles(state, props) {
+
 	return {
 		root: {
-			width: 250,
 			background: 'rgba(0, 0, 0, 0.2)',
-			color: '#fff'
+			color: '#fff',
+			height: props && props.height
 		},
 		item: {
 			cursor: 'pointer',

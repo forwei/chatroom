@@ -47,8 +47,8 @@ export default class ScrollBar extends React.Component {
 	render() {
 
 		return(
-			<div style={{'marginRight': this.state.show ? 0 : -5, position: 'absolute', right: 0, top: 0, bottom: 0, width: 5, background: 'rgba(0,0,0,.1)', borderRadius: 5, transition: 'margin-right 200ms'}}>
-				<div style={{height: this.barHeight, background: 'rgba(0,0,0,.1)', marginTop: this.barMargin, transition: 'margin-top 300ms', borderRadius: 5}} />
+			<div style={{'marginRight': this.state.show ? 0 : -3, position: 'absolute', right: 0, top: 0, bottom: 0, width: 3, background: 'rgba(0,0,0,.1)', borderRadius: 3, transition: 'margin-right 200ms'}}>
+				<div style={{height: this.barHeight, background: 'rgba(255, 255, 255, 0.7)', marginTop: this.barMargin, transition: 'margin-top 300ms', borderRadius: 3}} />
 			</div>
 		)
 	}

@@ -10,28 +10,35 @@ export default class ScrollAuto extends React.Component {
 			scrollTop: 0,
 			containerHeight: 0
 		}
+		this.scrolling = false
+		this.contentNode = null
 	}
 
 	handleWheel(event) {
-    let deltaY = event.deltaY;
+    let deltaY = event.deltaY, scrollTop = this.state.scrollTop
 
-		event.preventDefault();
-    event.stopPropagation();
+		event.preventDefault()
+    event.stopPropagation()
 
     if(this.state.containerHeight < this.props.height)
     	return
 		
-    this.state.scrollTop -= deltaY
-    if(this.state.scrollTop > 0)
-    	this.state.scrollTop = 0
+    scrollTop -= deltaY
+    if(scrollTop > 0)
+    	scrollTop = 0
+
+    this.scrolling = true
 
     let maxBottom = this.state.containerHeight - this.props.height
 
-    if(this.state.scrollTop < -maxBottom){
-    	this.state.scrollTop = -maxBottom
+    if(scrollTop < -maxBottom){
+    	scrollTop = -maxBottom
+    	this.scrolling = false
     }
 
-    this.setState({...this.state})
+    if(scrollTop != this.state.scrollTop){
+    	this.setState({...this.state, scrollTop: scrollTop})
+  	}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -39,16 +46,20 @@ export default class ScrollAuto extends React.Component {
 	}
 
 	componentDidMount() {
-    let content = ReactDOM.findDOMNode(this.refs.content)
-    if(content.offsetHeight != this.state.containerHeight){
-    	this.setState({containerHeight: content.offsetHeight, scrollTop: -(content.offsetHeight - this.props.height)})
-    }
+		this.contentNode = ReactDOM.findDOMNode(this.refs.content)
+    this.computeSizes()
 	}
 
 	componentDidUpdate() {
-    let content = ReactDOM.findDOMNode(this.refs.content)
-    if(content.offsetHeight != this.state.containerHeight){
-    	this.setState({containerHeight: content.offsetHeight, scrollTop: -(content.offsetHeight - this.props.height)})
+		this.computeSizes()
+  }
+
+  computeSizes() {
+    if(this.contentNode && this.contentNode.offsetHeight != this.state.containerHeight){
+    	this.state.containerHeight = this.contentNode.offsetHeight
+    	if(this.props.autoBottom && !this.scrolling && this.contentNode.offsetHeight > this.props.height)
+    		this.state.scrollTop = -(this.contentNode.offsetHeight - this.props.height)
+    	this.setState({...this.state})
     }
   }
 

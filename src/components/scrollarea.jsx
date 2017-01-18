@@ -17,10 +17,10 @@ export default class ScrollArea extends React.Component {
 	}
 
 	handleWheel(event) {
-    let deltaY = event.deltaY;
+    let deltaY = event.deltaY
 
-		event.preventDefault();
-    event.stopPropagation();
+		event.preventDefault()
+    event.stopPropagation()
 
     if(this.containerHeight < this.props.height)
     	return
@@ -34,6 +34,7 @@ export default class ScrollArea extends React.Component {
     if(this.state.scrollTop < -maxBottom){
     	this.state.scrollTop = -maxBottom
     }
+
     this.setState({...this.state})
 	}
 
