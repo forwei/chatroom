@@ -41,10 +41,6 @@ export default class ScrollAuto extends React.Component {
   	}
 	}
 
-	componentWillReceiveProps(nextProps) {
-
-	}
-
 	componentDidMount() {
 		this.contentNode = ReactDOM.findDOMNode(this.refs.content)
     this.computeSizes()

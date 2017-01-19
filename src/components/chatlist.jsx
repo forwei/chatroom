@@ -6,15 +6,15 @@ class ChatItem extends React.Component{
 	render() {
 
 		return(
-			<div style={{position: 'relative', minHeight: 50}}>
+			<div style={{position: 'relative', minHeight: 50, padding: '4px 0'}}>
 				<div style={{position: 'absolute', top: 0, left: 0, width: 50}}>
 					<img src="http://li.zhiboqiwang88.com/themes/v2/static/images/17yk.png" />
 				</div>
-				<div style={{marginLeft: 50, marginRight: 60}}>
-					<div>
+				<div style={{margin: '0px 60px 0px 50px'}}>
+					<div style={{height: 30, lineHeight: '30px'}}>
 						{this.props.chat.name}
 					</div>
-					<div>
+					<div style={{display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: 3, borderRadius: 3}}>
 						{this.props.chat.content}
 					</div>
 				</div>
