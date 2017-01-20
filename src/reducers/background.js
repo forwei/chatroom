@@ -3,7 +3,7 @@ import {
 } from '../actions'
 
 
-const backgroundChange = (state = 'assets/img/bg-img0.jpg', action) => {
+const Background = (state = 'assets/img/bg-img0.jpg', action) => {
   switch (action.type) {
     case BACKGROUND_CHANGE:
       return action.url
@@ -12,4 +12,4 @@ const backgroundChange = (state = 'assets/img/bg-img0.jpg', action) => {
   }
 }
 
-export default backgroundChange
+export default Background

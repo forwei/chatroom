@@ -40,7 +40,7 @@ export default class App extends React.Component{
 			return null
 
 		return (
-			<div style={{height: '100%', position: 'relative'}} >
+			<div style={{height: '100%', position: 'relative', overflow: 'hidden'}} >
 				<Background />
 				<Header />
 				<div style={{position: 'absolute', left: 8, top: 58, bottom: 8, width: 220, overflow: 'hidden'}}>
@@ -51,6 +51,7 @@ export default class App extends React.Component{
 					<ChatList height={this.state.screenHeight - 150 - 16 - 50} />
 					<ChatBox />
 				</div>
+
 			</div>
 		)
 	}

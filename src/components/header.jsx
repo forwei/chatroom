@@ -6,7 +6,7 @@ export default class Header extends React.Component {
 
 		return(
 			<div style={{height: 50, width: '100%', background: 'rgba(0,0,0,0.7)', position: 'relative', color: '#FFF'}}>
-header
+
 			</div>
 		)
 	}

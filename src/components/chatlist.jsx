@@ -1,5 +1,6 @@
 import React from 'react'
 import ScrollAuto from './scrollauto'
+import Dialog from './dialog'
 
 class ChatItem extends React.Component{
 
@@ -36,12 +37,17 @@ export default class ChatList extends React.Component{
 				{name: '江鸿波3', content: 'chat content 什么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么3'},
 				{name: '江鸿波3', content: 'chat content 什么更什么3'},
 				{name: '江鸿波3', content: 'chat content 什么更什么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么3'}
-			]
+			],
+			open: false
 		}
 	}
 
 	addChat(event) {
-		this.setState({chats: [...this.state.chats, {name: '江鸿波3', content: 'chat content 什么更什么3'}]})
+		this.setState({chats: [...this.state.chats, {name: '江鸿波3', content: 'chat content 什么更什么3'}], open: !this.state.open})
+	}
+
+	handleClose() {
+		this.setState({...this.state, open: false})
 	}
 
 	render() {
@@ -58,6 +64,11 @@ export default class ChatList extends React.Component{
 					}
 				</ScrollAuto>
 				</div>
+				{this.state.open &&
+					<Dialog height={200} width={550} onClose={this.handleClose.bind(this)}>
+						<p style={{background: '#fff'}}>对话dfgdf<br />框</p>
+					</Dialog>
+				}
 			</div>
 		)
 	}
