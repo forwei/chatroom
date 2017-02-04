@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import background from './background'
+import user from './user'
 
 
 
 const rootReducer = combineReducers({
-  background
+  background,
+  user
 })
 
 export default rootReducer

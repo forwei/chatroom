@@ -6,6 +6,9 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 
+//初始化websocket
+import './libs/chatroom'
+
 const middleware = [ thunk ]
 
 const store = createStore(
