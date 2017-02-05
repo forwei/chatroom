@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
 
-import userAction from '../actions/user'
+import store from '../reducers/store'
+import {userConnection, userDisconnect} from '../actions/user'
 
 let socket = io('47.90.79.29:3000')
 
@@ -9,7 +10,10 @@ let socket = io('47.90.79.29:3000')
 socket.on('message', data => {
   switch(data.msgType) {
     case 'USER_CONNECTION':
-      console.log(data.data)
+      store.dispatch(userConnection(data.data))
+    break
+    case 'USER_DISCONNECT':
+      store.dispatch(userDisconnect(data.data))
     break
   }
 })

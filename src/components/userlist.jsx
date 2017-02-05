@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import ReactDOM from "react-dom"
+import { connect } from 'react-redux'
 import ScrollArea from './scrollarea'
 
 class UserItem extends React.Component {
@@ -38,22 +39,27 @@ class UserItem extends React.Component {
 	}
 }
 
-export default class UserList extends React.Component{
+class UserList extends React.Component{
+
+	static propTypes = {
+		allUsers: PropTypes.array.isRequired
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {
-			users: [123, 234, 4356, 456]
+//			users: [123, 234, 4356, 456]
 		}
   }
 
   addUser(event) {
-  	if(this.refs.val.value)
-  		this.setState({users: [...this.state.users, this.refs.val.value]})
+//  	if(this.refs.val.value)
+//  		this.setState({users: [...this.state.users, this.refs.val.value]})
   }
 
   removeUser(inx){
-  	this.state.users.splice(inx, 1)
-  	this.setState(this.state)
+//  	this.state.users.splice(inx, 1)
+//  	this.setState(this.state)
   }
 
 	render() {
@@ -72,8 +78,8 @@ export default class UserList extends React.Component{
 				<div style={{height: this.props.height - 25 - 32, overflow: 'hidden'}}>
 					<ScrollArea itemHeight={24} height={this.props.height - 25 - 32}>
 					{
-						this.state.users.map((user, inx) => {
-							return <UserItem key={inx} name={user} inx={inx} onClick={this.removeUser.bind(this)} />
+						this.props.allUsers.map((user, inx) => {
+							return <UserItem key={inx} name={user.name} inx={inx} onClick={this.removeUser.bind(this)} />
 						})
 					}
 					</ScrollArea>
@@ -85,6 +91,13 @@ export default class UserList extends React.Component{
 
   }
 }
+
+const mapStateToProps = state => {
+	return {
+		allUsers: state.user
+	}
+}
+export default connect(mapStateToProps)(UserList)
 
 function getStyles(state, props) {
 
