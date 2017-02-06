@@ -1,11 +1,15 @@
 var webpack = require("webpack")
+var path = require( "path" )
+
 
 module.exports = {
-  entry: ['webpack-dev-server/client?http://localhost:8080', './src/index.js'],
+  entry: {
+    app: ['webpack-hot-middleware/client?reload=1', './src/index.js']
+  },
   output: {
-    path: './dist/assets',
-    filename: 'app.js',
-    publicPath: '/'
+    path: path.resolve( __dirname, 'dist' ),
+    publicPath: '/assets/',
+    filename: 'app.js'
   },
   module: {
     loaders: [
@@ -20,15 +24,12 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    hot: true,
-    inline: true,
-    contentBase: './dist'
-  },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
 }

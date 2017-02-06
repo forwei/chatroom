@@ -2,6 +2,8 @@ import React from 'react'
 import ScrollAuto from './scrollauto'
 import Dialog from './dialog'
 
+import { connect } from 'react-redux'
+
 class ChatItem extends React.Component{
 
 	render() {
@@ -24,7 +26,7 @@ class ChatItem extends React.Component{
 	}
 }
 
-export default class ChatList extends React.Component{
+class ChatList extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -51,6 +53,7 @@ export default class ChatList extends React.Component{
 	}
 
 	render() {
+
 		return(
 			<div style={{color: '#fff', height: this.props.height}}>
 				<div onClick={this.addChat.bind(this)} style={{height: 30}}>
@@ -73,3 +76,12 @@ export default class ChatList extends React.Component{
 		)
 	}
 }
+
+const mapStateToProps = state => {
+
+	return {
+		messages: state.message
+	}
+}
+
+export default connect(mapStateToProps)(ChatList)

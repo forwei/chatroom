@@ -1,6 +1,7 @@
 import {
   USER_CONNECTION,
-  USER_DISCONNECT
+  USER_DISCONNECT,
+  USER_ALL_CONNECTION
 } from '../actions'
 
 
@@ -10,6 +11,8 @@ const User = (state = [], action) => {
       return addUser(state, action.user)
     case USER_DISCONNECT:
       return delUser(state, action.user)
+    case USER_ALL_CONNECTION:
+      return [...action.users]
     default:
       return state
   }

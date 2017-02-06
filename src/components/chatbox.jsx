@@ -1,7 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
+import {postMessage} from '../actions/message'
 
-export default class ChatBox extends React.Component {
+class ChatBox extends React.Component {
+
+	handlePostMsg() {
+		let messageText = this.refs.messageText.value
+		if(messageText.length < 1)
+			return
+		messageText = {content: messageText, msgType: 1}
+		this.props.dispatch(postMessage(messageText))
+	}
+
+	handleKeyEnter(e) {
+		if(e.key === 'Enter'){
+			this.handlePostMsg()
+			e.preventDefault()
+		}
+	}
 
 	render() {
 
@@ -14,10 +31,12 @@ export default class ChatBox extends React.Component {
 					<span>表情 </span><span> 图片</span>
 				</div>
 				<div style={{height: 62, position: 'relative', paddingRight: 120}}>
-					<input type="text" style={{display: 'block', border: 'none', height: '100%', padding: '0px 10px', width: '100%', fontSize: 18, outline: 'none'}} placeholder="在这儿说点什么。。。"/>
-					<a style={{position: 'absolute', top: 0, right: 0, width: 100, height: 62, textAlign: 'center', lineHeight: '62px', background: '#ccc', fontSize: 20}} href="javascript:;">发 送</a>
+					<input type="text" style={{display: 'block', border: 'none', height: '100%', padding: '0px 10px', width: '100%', fontSize: 18, outline: 'none'}} placeholder="在这儿说点什么。。。" ref="messageText" onKeyPress={this.handleKeyEnter.bind(this)}/>
+					<a style={{position: 'absolute', top: 0, right: 0, width: 100, height: 62, textAlign: 'center', lineHeight: '62px', background: '#ccc', fontSize: 20}} href="javascript:;" onClick={this.handlePostMsg.bind(this)}>发 送</a>
 				</div>
 			</div>
 		)
 	}
 }
+
+export default connect()(ChatBox)

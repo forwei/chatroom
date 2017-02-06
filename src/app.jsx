@@ -28,7 +28,7 @@ export default class App extends React.Component{
 
 	componentDidMount() {
 		this.onWindowResize()
-		window.addEventListener("resize", this.onWindowResize.bind(this));
+		window.addEventListener("resize", this.onWindowResize.bind(this))
 	}
 
 	componentWillUnmount() {
