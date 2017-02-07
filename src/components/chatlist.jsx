@@ -8,14 +8,25 @@ class ChatItem extends React.Component{
 
 	render() {
 
+		let faceStyle = {position: 'absolute', top: 9, left: 0, width: 50, textAlign: 'center'}
+		let wrapStyle = {margin: '0px 60px 0px 50px'}
+
+		if(this.props.account.userId == this.props.chat.userId){
+			faceStyle.left = 'auto'
+			faceStyle.right = 0
+			wrapStyle.marginRight = 50
+			wrapStyle.marginLeft = 60
+			wrapStyle.textAlign = 'right'
+		}
+
 		return(
 			<div style={{position: 'relative', minHeight: 50, padding: '4px 0'}}>
-				<div style={{position: 'absolute', top: 0, left: 0, width: 50}}>
+				<div style={faceStyle}>
 					<img src="http://li.zhiboqiwang88.com/themes/v2/static/images/17yk.png" />
 				</div>
-				<div style={{margin: '0px 60px 0px 50px'}}>
+				<div style={wrapStyle}>
 					<div style={{height: 30, lineHeight: '30px'}}>
-						{this.props.chat.name}
+						{this.props.chat.userId > 0 ? this.props.chat.name : '游客' + this.props.chat.name}
 					</div>
 					<div style={{display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: 3, borderRadius: 3}}>
 						{this.props.chat.content}
@@ -52,7 +63,7 @@ class ChatList extends React.Component{
 				<div style={{height: this.props.height - 30}}>
 				<ScrollAuto height={this.props.height - 30} autoBottom={true}>
 					{this.props.messages.map((chat, inx) => {
-						return <ChatItem key={inx} chat={chat} />
+						return <ChatItem key={inx} chat={chat} account={this.props.account} />
 					})
 					}
 				</ScrollAuto>
@@ -70,7 +81,8 @@ class ChatList extends React.Component{
 const mapStateToProps = state => {
 
 	return {
-		messages: state.message
+		messages: state.message,
+		account: state.account
 	}
 }
 

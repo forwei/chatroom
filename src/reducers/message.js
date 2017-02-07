@@ -11,11 +11,28 @@ const Message = (state = [], action) => {
     case POST_MESSAGE:
       return postMessage(state, action.msg)
     case USER_MESSAGE:
-console.log(action.msg)
-      return state
+      return addMessage(state, action.msg)
     default:
       return state
   }
+}
+
+function addMessage(state, msg) {
+
+  const account = store.getState().account
+
+  if(msg.userId == account.userId) {
+    for(let inx in state) {
+      if(state[inx].msgId < 1 && state[inx].status == 0 && state[inx].time == msg.time) {
+        state[inx].msgId = msg.msgId
+        state[inx].status = 1
+
+        return [...state]
+      }
+    }
+  }
+
+  return [...state, msg]
 }
 
 function postMessage(state, msg) {
