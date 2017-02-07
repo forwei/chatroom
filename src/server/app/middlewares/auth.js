@@ -44,6 +44,10 @@ export default () => {
 				auth.loginTime = auth.createTime = time
 			}
 
+			auth.userLevel = 0
+			auth.userFace = ''
+			auth.userId = -auth.id
+
 			ctx.auth = auth
 			ctx.session.auth = {userId: auth.id, isGuest: true}
 		}

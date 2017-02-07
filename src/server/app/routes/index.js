@@ -16,8 +16,8 @@ router.get('/info', session(), auth(), async (ctx, next) => {
   ctx.body = ctx.session
 })
 
-router.get('/infos',session() , async (ctx, next) => {
-	ctx.session.name = 'zzz'
+router.get('/infos', async (ctx, next) => {
+
   ctx.body = 'okles'
 })
 

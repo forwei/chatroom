@@ -16,6 +16,7 @@ export default class Session {
 	    }
 		} catch(err) {
 			console.log('session error')
+			throw err
 		}
 
 		return {...this.session}

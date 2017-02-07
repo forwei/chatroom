@@ -30,22 +30,12 @@ class ChatList extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			chats:[
-				{name: '江鸿波', content: 'chat content 什么更什么'},
-				{name: '江鸿波1', content: 'chat content 什么更什么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么1'},
-				{name: '江鸿波2', content: 'chat content 什么更什么2'},
-				{name: '江鸿波3', content: 'chat content 什么更什么3'},
-				{name: '江鸿波3', content: 'chat content 什么更什么3'},
-				{name: '江鸿波3', content: 'chat content 什么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么3'},
-				{name: '江鸿波3', content: 'chat content 什么更什么3'},
-				{name: '江鸿波3', content: 'chat content 什么更什么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么更什么么3'}
-			],
 			open: false
 		}
 	}
 
 	addChat(event) {
-		this.setState({chats: [...this.state.chats, {name: '江鸿波3', content: 'chat content 什么更什么3'}], open: !this.state.open})
+		this.setState({open: !this.state.open})
 	}
 
 	handleClose() {
@@ -61,7 +51,7 @@ class ChatList extends React.Component{
 				</div>
 				<div style={{height: this.props.height - 30}}>
 				<ScrollAuto height={this.props.height - 30} autoBottom={true}>
-					{this.state.chats.map((chat, inx) => {
+					{this.props.messages.map((chat, inx) => {
 						return <ChatItem key={inx} chat={chat} />
 					})
 					}

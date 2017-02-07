@@ -7,3 +7,7 @@ export const USER_ALL_CONNECTION = 'USER_ALL_CONNECTION'
 
 //消息相关事件标识符
 export const POST_MESSAGE = 'POST_MESSAGE'
+export const USER_MESSAGE = 'USER_MESSAGE'
+
+//用户账户信息
+export const GET_ACCOUNT = 'GET_ACCOUNT'

@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import http from 'http'
 import serve from 'koa-static'
+import koaBody from 'koa-body'
 
 import router from './app/routes'
 import {chat} from './app/modules'
@@ -17,6 +18,11 @@ app.keys = ['forwei', 'run.liuwei@live.com']
 
 //静态文件
 app.use(serve(devConfig.output.path))
+
+//解析body
+app.use(koaBody({
+    multipart: true
+}))
 
 //路由
 app.use(router.routes())

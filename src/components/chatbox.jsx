@@ -11,6 +11,8 @@ class ChatBox extends React.Component {
 			return
 		messageText = {content: messageText, msgType: 1}
 		this.props.dispatch(postMessage(messageText))
+
+		this.refs.messageText.value = ''
 	}
 
 	handleKeyEnter(e) {

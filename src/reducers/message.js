@@ -1,16 +1,50 @@
 import {
-  POST_MESSAGE
+  POST_MESSAGE,
+  USER_MESSAGE
 } from '../actions'
 
+import store from './store'
 
+//message {name: '', content: '', msgType: 1, time: 12456584, userId: 1000, msgId: 1001, userLevel: 0, userFace: '', status: 0}
 const Message = (state = [], action) => {
   switch (action.type) {
     case POST_MESSAGE:
-      return []
+      return postMessage(state, action.msg)
+    case USER_MESSAGE:
+console.log(action.msg)
+      return state
     default:
       return state
   }
-  
+}
+
+function postMessage(state, msg) {
+  const account = store.getState().account
+
+  let postMsg = {}
+  postMsg.content = msg.content
+  postMsg.msgType = msg.msgType
+  postMsg.time = Math.round(new Date().getTime() / 1000)
+
+  fetch('/room/api/message', {
+    credentials: 'include',
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postMsg)
+  }).catch(e => {
+    console.log('post message error')
+  })
+
+  postMsg.name = account.name
+  postMsg.userId = account.userId
+  postMsg.userLevel = account.userLevel
+  postMsg.userFace = account.userFace
+  postMsg.status = 0
+  postMsg.msgId = 0
+
+  return [...state, postMsg]
 }
 
 export default Message
