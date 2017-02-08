@@ -1,6 +1,5 @@
 import React from 'react'
 import ScrollAuto from './scrollauto'
-import Dialog from './dialog'
 
 import { connect } from 'react-redux'
 
@@ -41,23 +40,15 @@ class ChatList extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			open: false
+			
 		}
-	}
-
-	addChat(event) {
-		this.setState({open: !this.state.open})
-	}
-
-	handleClose() {
-		this.setState({...this.state, open: false})
 	}
 
 	render() {
 
 		return(
 			<div style={{color: '#fff', height: this.props.height}}>
-				<div onClick={this.addChat.bind(this)} style={{height: 30}}>
+				<div style={{height: 30}}>
 					期望财经直播室，欢迎您
 				</div>
 				<div style={{height: this.props.height - 30}}>
@@ -68,11 +59,6 @@ class ChatList extends React.Component{
 					}
 				</ScrollAuto>
 				</div>
-				{this.state.open &&
-					<Dialog height={200} width={550} onClose={this.handleClose.bind(this)}>
-						<p style={{background: '#fff'}}>对话dfgdf<br />框</p>
-					</Dialog>
-				}
 			</div>
 		)
 	}

@@ -17,10 +17,8 @@ export default class App extends React.Component{
 			chatWidth: 550
 		}
 
-		if(localStorage){
-			let chatWidth = localStorage.getItem('chatWidth')
-			if(chatWidth)
-				this.state.chatWidth = parseInt(chatWidth)
+		if(localStorage && localStorage.hasOwnProperty('chatWidth')){
+				this.state.chatWidth = parseInt(localStorage.getItem('chatWidth'))
 		}
 	}
 
