@@ -71,12 +71,12 @@ class UserList extends React.Component{
 				<div style={styles.headwrap}>
 					<span>在线会员</span>
 				</div>
-				<div style={{height: 25}}>
+				<div style={{height: 30, background: 'rgba(0,0,0,0.3)'}}>
 					<input ref="val" type="text" style={styles.searchbtn} />
-					<span onClick={this.addUser.bind(this)}>在线</span>
+					<span onClick={this.addUser.bind(this)}>搜索</span>
 				</div>
 				<div style={{height: this.props.height - 25 - 32, overflow: 'hidden'}}>
-					<ScrollArea itemHeight={24} height={this.props.height - 25 - 32}>
+					<ScrollArea itemHeight={35} height={this.props.height - 25 - 32}>
 					{
 						this.props.allUsers.map((user, inx) => {
 							return <UserItem key={inx} name={user.name} inx={inx} onClick={this.removeUser.bind(this)} />
@@ -109,6 +109,8 @@ function getStyles(state, props) {
 		},
 		item: {
 			cursor: 'pointer',
+			height: 35,
+			lineHeight: '35px',
 			transition: 'background-color 300ms',
 			background: state && state.hovered ? 'rgba(0, 0, 0, 0.2)' : null
 		},
@@ -120,8 +122,10 @@ function getStyles(state, props) {
 		},
 		searchbtn: {
 			border: 'none',
-			background: 'rgba(0,0,0,0.3)',
-			padding: '4px 5px',
+			background: 'none',
+			height: 30,
+			lineHeight: '30px',
+			outline: 0,
 			marginLeft: '5px',
 			color: '#fff'
 		}

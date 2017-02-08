@@ -25,7 +25,7 @@ export default () => {
 			//guest user
 			let guestName = ctx.cookies.get('guestName', cookie)
 			if(!guestName){
-				guestName = ctx.sessionId.substr(3, 4)
+				guestName = ctx.sessionId.substr(3, 5)
 				ctx.cookies.set('guestName', guestName, cookie)
 			}
 			let time = Math.round(new Date().getTime()/1000),
