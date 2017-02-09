@@ -16,6 +16,7 @@ export default class App extends React.Component{
 			screenHeight: 0,
 			chatWidth: 550
 		}
+		this.onWindowResize = this.onWindowResize.bind(this)
 
 		if(localStorage && localStorage.hasOwnProperty('chatWidth')){
 				this.state.chatWidth = parseInt(localStorage.getItem('chatWidth'))
@@ -34,11 +35,11 @@ export default class App extends React.Component{
 
 	componentDidMount() {
 		this.onWindowResize()
-		window.addEventListener("resize", this.onWindowResize.bind(this))
+		window.addEventListener("resize", this.onWindowResize)
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("resize", this.onWindowResize.bind(this))
+		window.removeEventListener("resize", this.onWindowResize)
 	}
 
 	handleDrag(x) {
