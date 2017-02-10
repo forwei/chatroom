@@ -23,6 +23,11 @@ class ChatBox extends React.Component {
 		}
 	}
 
+	handleSelectFace(name) {
+		this.refs.messageText.value = this.refs.messageText.value + name
+		this.refs.messageText.focus()
+	}
+
 	render() {
 
 		return(
@@ -31,7 +36,7 @@ class ChatBox extends React.Component {
 					高级客服：
 				</div>
 				<div style={{height: 37, lineHeight: '37px', backgroundColor: 'rgb(243,243,243)', padding: '0 8px'}}>
-					<Emotion style={{display: 'inline-block', cursor: 'pointer'}}>表情 </Emotion><span> 图片</span>
+					<Emotion style={{display: 'inline-block', cursor: 'pointer'}} selectFace={this.handleSelectFace.bind(this)}>表情 </Emotion><span> 图片</span>
 				</div>
 				<div style={{height: 62, position: 'relative', paddingRight: 120}}>
 					<input type="text" style={{display: 'block', border: 'none', height: '100%', padding: '0px 10px', width: '100%', fontSize: 18, outline: 'none'}} placeholder="在这儿说点什么。。。" ref="messageText" onKeyPress={this.handleKeyEnter.bind(this)}/>

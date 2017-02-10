@@ -1,4 +1,5 @@
 import Router from 'koa-router'
+import http from 'http'
 
 const router = new Router()
 
@@ -34,6 +35,28 @@ router.get('/api/allusers', async (ctx, next) => {
 //获取账户信息
 router.get('/api/account', async (ctx, next) => {
   ctx.body = ctx.auth
+})
+
+//代理获取sina表情库
+router.get('/api/emotions', async (ctx, next) => {
+  try{
+    let json = await new Promise((resolve, reject) => {
+      http.get('http://api.weibo.com/2/emotions.json?source=1362404091', (res) => {
+        let html = ""
+        res.on("data",(data)=>{
+          html+=data
+        })
+        res.on("end",()=>{
+          resolve(html)
+        })
+      })
+    })
+    ctx.response.type = 'application/json'
+    ctx.set('Cache-Control', 'max-age=31536000')
+    ctx.body = json
+  }catch(e){
+    console.log('sina error')
+  }
 })
 
 

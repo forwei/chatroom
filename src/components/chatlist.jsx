@@ -27,9 +27,7 @@ class ChatItem extends React.Component{
 					<div style={{height: 30, lineHeight: '30px'}}>
 						{this.props.chat.userId > 0 ? this.props.chat.name : '游客' + this.props.chat.name}
 					</div>
-					<div style={{display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: 3, borderRadius: 3}}>
-						{this.props.chat.content}
-					</div>
+					<div style={{display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: 3, borderRadius: 3}} dangerouslySetInnerHTML={{__html: this.props.chat.content}} />
 				</div>
 			</div>
 		)
