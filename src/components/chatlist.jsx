@@ -9,6 +9,7 @@ class ChatItem extends React.Component{
 
 		let faceStyle = {position: 'absolute', top: 9, left: 0, width: 50, textAlign: 'center'}
 		let wrapStyle = {margin: '0px 60px 0px 50px'}
+		let contentStyle = {display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: '3px 6px', borderRadius: 3, lineHeight: '30px'}
 
 		if(this.props.account.userId == this.props.chat.userId){
 			faceStyle.left = 'auto'
@@ -16,6 +17,7 @@ class ChatItem extends React.Component{
 			wrapStyle.marginRight = 50
 			wrapStyle.marginLeft = 60
 			wrapStyle.textAlign = 'right'
+			contentStyle.textAlign = 'left'
 		}
 
 		return(
@@ -27,7 +29,7 @@ class ChatItem extends React.Component{
 					<div style={{height: 30, lineHeight: '30px'}}>
 						{this.props.chat.userId > 0 ? this.props.chat.name : '游客' + this.props.chat.name}
 					</div>
-					<div style={{display: 'inline-block', color: '#333', backgroundColor: '#fff', padding: 3, borderRadius: 3}} dangerouslySetInnerHTML={{__html: this.props.chat.content}} />
+					<div style={contentStyle} dangerouslySetInnerHTML={{__html: this.props.chat.content}} />
 				</div>
 			</div>
 		)

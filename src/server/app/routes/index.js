@@ -18,7 +18,7 @@ router.get('/info', session(), auth(), async (ctx, next) => {
 
 router.get('/infos', async (ctx, next) => {
 
-  ctx.body = 'okles'
+  ctx.body = 'okless'
 })
 
 
