@@ -106,7 +106,6 @@ class Emotion extends React.Component {
 
   handleFaceClick(name) {
     this.props.selectFace(name)
-    this.setState({...this.state, showEm: false})
   }
 
   render() {

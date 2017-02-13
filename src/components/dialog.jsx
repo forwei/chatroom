@@ -8,6 +8,10 @@ export default class Dialog extends React.Component {
 		width: PropTypes.number.isRequired
 	}
 
+	componentDidMount() {
+		this.props.componentDidMount && this.props.componentDidMount()
+	}
+
 	handleClose(e) {
 		this.props.onClose && this.props.onClose(e)
 	}
