@@ -10,7 +10,7 @@ class db {
 		this.pool = mysql.createPool({
 			host: '47.90.79.29',
 			user: 'chatroom',
-			port: '3307',
+			port: '3308',
 			password: 'bI3acxVUK5vU33Np',
 			database: 'chatroom'
 		})

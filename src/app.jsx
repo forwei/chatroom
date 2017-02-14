@@ -7,6 +7,8 @@ import ChatBox from './components/chatbox'
 import InfoPanel from './components/infopanel'
 import DragBar from './components/dragbar'
 
+import Video from './components/video'
+
 
 export default class App extends React.Component{
 	constructor(props) {
@@ -64,6 +66,10 @@ export default class App extends React.Component{
 					<UserList height={this.state.screenHeight - 50 - 16 - 260} />
 				</div>
 				<div style={{marginTop: 8, marginLeft: 236, marginBottom: 8, background: 'rgba(0, 0, 0, 0.2)', marginRight: this.state.chatWidth, height: this.state.screenHeight - 50 - 16}}>
+
+
+					<Video />
+
 
 				</div>
 
