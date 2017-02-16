@@ -102,12 +102,35 @@ class Signup extends React.Component {
     e.preventDefault()
     if(this.state.signuping)
       return
-    let userName = ReactDOM.findDOMNode(this.refs.userName).value
-    let password = ReactDOM.findDOMNode(this.refs.password).value
-    let phone = ReactDOM.findDOMNode(this.refs.phone).value
-    let qq = ReactDOM.findDOMNode(this.refs.qq).value
+    let signData = {}
+    const _this = this
+    signData.userName = ReactDOM.findDOMNode(this.refs.userName).value
+    signData.password = ReactDOM.findDOMNode(this.refs.password).value
+    signData.phone = ReactDOM.findDOMNode(this.refs.phone).value
+    signData.qq = ReactDOM.findDOMNode(this.refs.qq).value
 
     this.setState({...this.state, errorText: '正在注册，请稍等。', signuping: true})
+
+    fetch('/signup', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(signData)
+    }).then(res => {
+      res.json().then(json => {
+        if(json.error){
+          _this.setState({..._this.state, errorText: json.msg, signuping: false})
+          return
+        }
+        _this.setState({..._this.state, errorText: '', signuping: false, show: false})
+        alert('注册成功')
+      })
+    }).catch(err => {
+      _this.setState({..._this.state, errorText: '服务器错误，请稍后再试。', signuping: false})
+    })
     
   }
 

@@ -34,7 +34,7 @@ let emotion = {
 			if(sArr)
 				for(let i = 0; i < sArr.length; i++){
 					if(uSinaEmotionsHt.containsKey(sArr[i])) {
-						let reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" title=\"" + sArr[i] + "\" height=\"22\" width=\"22\" />"
+						let reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" height=\"22\" width=\"22\" />"
 						s = s.replace(sArr[i], reStr)
 					}
 				}
