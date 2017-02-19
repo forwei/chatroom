@@ -28,12 +28,12 @@ router.post('/signup', session(), auth(), async(ctx, next) => {
   let retData = {error: 0, msg: '注册成功'}
   ctx.body = retData
 
-  if(!reqBody.userName || reqBody.userName.length < 2) {
+  if(!reqBody.userName || reqBody.userName.length < 2 || reqBody.userName.length > 10) {
     retData.error = 1
     retData.msg = '用户名设置错误'
     return
   }
-  if(!reqBody.password || reqBody.password.length < 5) {
+  if(!reqBody.password || reqBody.password.length < 5 || reqBody.password.length > 20) {
     retData.error = 1
     retData.msg = '密码设置错误'
     return
@@ -73,10 +73,10 @@ router.post('/signup', session(), auth(), async(ctx, next) => {
 //登录
 router.post('/signin', session(), auth(), async(ctx, next) => {
   let reqBody = ctx.request.body
-  let retData = {error: 0, msg: '注册成功'}
+  let retData = {error: 0, msg: '登录成功'}
   ctx.body = retData
 
-  if(!reqBody.userName || reqBody.userName.length < 5) {
+  if(!reqBody.userName || reqBody.userName.length < 2) {
     retData.error = 1
     retData.msg = '用户名错误'
     return
@@ -87,6 +87,22 @@ router.post('/signin', session(), auth(), async(ctx, next) => {
     return
   }
 
+  let user = await db.query('SELECT u.id, u.name FROM `userAuth` AS ua LEFT JOIN `user` AS u ON ua.userId = u.id WHERE ua.identifier = ? AND ua.passwordHash = ?', [reqBody.userName, reqBody.password])
+  if(user.length == 0) {
+    retData.error = 1
+    retData.msg = '用户名或密码错误'
+    return
+  }
+
+  ctx.session.auth = {userId: user[0].id, isGuest: false}
+})
+
+//退出
+router.get('/signout', session(), auth(), async(ctx, next) => {
+  let retData = {error: 0, msg: '登出成功'}
+  ctx.body = retData
+
+  ctx.session.auth = null
 })
 
 export default router

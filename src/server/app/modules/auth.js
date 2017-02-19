@@ -17,10 +17,22 @@ export default class Auth {
 				return null
 			row = row[0]
 			row.userId = this.userId
+			row.userLevel = 0
+			row.userFace = ''
 			row.isGuest = true
 
 			this.userInfo = row
-			return this.userInfo
+		}else {
+			let row = await db.query('SELECT * FROM `user` WHERE `id` = ?', [this.userId])
+			if(row.length < 1)
+				return null
+			row = row[0]
+			row.userId = this.userId
+			row.userLevel = 1
+			row.userFace = ''
+			row.isGuest = false
+
+			this.userInfo = row
 		}
 		return this.userInfo
 	}

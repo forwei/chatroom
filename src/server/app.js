@@ -6,6 +6,8 @@ import koaBody from 'koa-body'
 import router from './app/routes'
 import {chat} from './app/modules'
 
+import log, {debug} from './app/utils/log'
+
 
 import webpack from 'webpack'
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware'
@@ -15,6 +17,8 @@ const compile = webpack(devConfig)
 
 const app = new Koa()
 app.keys = ['forwei', 'run.liuwei@live.com']
+
+loadErrors()
 
 //静态文件
 app.use(serve(devConfig.output.path))
@@ -38,14 +42,12 @@ app.use(devMiddleware(compile, {
     lazy: false,
     // watch options (only lazy: false) 
     watchOptions: {
-        aggregateTimeout: 300,
+        aggregateTimeout: 60,
         poll: true
     },
     // public path to bind the middleware to 
     // use the same as in webpack 
     publicPath: devConfig.output.publicPath,
-    // custom headers 
-    headers: { "X-Custom-Header": "yes" },
     // options for formating the statistics 
     stats: {
         colors: true
@@ -58,3 +60,27 @@ app.use(hotMiddleware(compile))
 let server = http.Server(app.callback())
 app.chat = new chat(server, {serveClient: false})
 server.listen(3000)
+
+log(`start server port: ${3000}`)
+
+
+
+
+function loadErrors() {
+    app.on("error", (err, ctx) => {
+        debug(err)
+    })
+
+    process.on('unhandledRejection', (reason, promise) => {
+        debug(reason)
+    })
+
+    // 捕获未知错误
+    process.on('uncaughtException', (err) => {
+        debug(err)
+
+        if (err.message.indexOf(' EADDRINUSE ') > -1) {
+            process.exit()
+        }
+    })
+}

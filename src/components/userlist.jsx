@@ -21,7 +21,7 @@ class UserItem extends React.Component {
 	}
 
 	handleClick(event){
-		this.props.onClick(this.props.inx)
+
 	}
 
 	render() {
@@ -34,7 +34,7 @@ class UserItem extends React.Component {
 			onMouseEnter={this.handleMouseEnter.bind(this)}
 			onClick={this.handleClick.bind(this)}
 			style={styles.item}>
-			<span>游客{this.props.name}</span></div>
+			<span>{this.props.user.userLevel != 0 ? this.props.user.name : '游客' + this.props.user.name}</span></div>
 		)
 	}
 }
@@ -48,18 +48,7 @@ class UserList extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-//			users: [123, 234, 4356, 456]
 		}
-  }
-
-  addUser(event) {
-//  	if(this.refs.val.value)
-//  		this.setState({users: [...this.state.users, this.refs.val.value]})
-  }
-
-  removeUser(inx){
-//  	this.state.users.splice(inx, 1)
-//  	this.setState(this.state)
   }
 
 	render() {
@@ -73,13 +62,13 @@ class UserList extends React.Component{
 				</div>
 				<div style={{height: 30, background: 'rgba(0,0,0,0.3)'}}>
 					<input ref="val" type="text" style={styles.searchbtn} />
-					<span onClick={this.addUser.bind(this)}>搜索</span>
+					<span>搜索</span>
 				</div>
 				<div style={{height: this.props.height - 25 - 32, overflow: 'hidden'}}>
 					<ScrollArea itemHeight={35} height={this.props.height - 25 - 32}>
 					{
 						this.props.allUsers.map((user, inx) => {
-							return <UserItem key={inx} name={user.name} inx={inx} onClick={this.removeUser.bind(this)} />
+							return <UserItem key={inx} user={user} />
 						})
 					}
 					</ScrollArea>

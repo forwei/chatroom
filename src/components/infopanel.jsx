@@ -23,7 +23,8 @@ class InfoPanel extends React.Component {
 				<h4 style={{color: '#fff', textAlign: 'center'}}>{this.props.account.userLevel == 0 ? '游客' + this.props.account.name : this.props.account.name}</h4>
 				<div>
 					<Skin style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}}>换肤</Skin>
-					<Signin style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}}>登陆</Signin>
+					<Signin style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}}>登录</Signin>
+					<a style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}} href="/signout">登出</a>
 					<Signup style={{color: '#fff', display: 'inline-block', cursor: 'pointer'}}>注册</Signup>
 				</div>
 			</div>

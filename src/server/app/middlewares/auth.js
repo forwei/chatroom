@@ -21,6 +21,20 @@ export default () => {
 
 		if(ctx.session.auth && ctx.session.auth.userId && !ctx.session.auth.isGuest){
 			//login user
+			let auth = {}
+			let row = await db.query('SELECT * FROM `user` WHERE `id` = ?', [ctx.session.auth.userId])
+			if(row.length == 0){
+				ctx.throw(403)
+				throw new Error("middleware auth error")
+				return
+			}
+			auth = {...row[0]}
+
+			auth.userLevel = 1
+			auth.userFace = ''
+			auth.userId = auth.id
+
+			ctx.auth = auth
 		}else{
 			//guest user
 			let guestName = ctx.cookies.get('guestName', cookie)

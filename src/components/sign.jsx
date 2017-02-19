@@ -201,10 +201,32 @@ class Signin extends React.Component {
     if(this.state.siginining)
       return
 
+    let _this = this
     let userName = ReactDOM.findDOMNode(this.refs.userName).value
     let password = ReactDOM.findDOMNode(this.refs.password).value
 
     this.setState({...this.state, errorText: '正在登录，请稍等。', siginining: true})
+
+    fetch('/signin', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({userName, password})
+    }).then(res => {
+      res.json().then(json => {
+        if(json.error){
+          _this.setState({..._this.state, errorText: json.msg, siginining: false})
+          return
+        }
+        //_this.setState({..._this.state, errorText: '', siginining: false, show: false})
+        location.reload()
+      })
+    }).catch(err => {
+      _this.setState({..._this.state, errorText: '服务器错误，请稍后再试。', siginining: false})
+    })
   }
 
   render() {
@@ -219,7 +241,7 @@ class Signin extends React.Component {
               {this.state.errorText &&
                 <p style={{fontSize: 14, margin: '10px', color: '#ec5840'}}>{this.state.errorText}</p>
               }
-              <Input ref="userName" type="text" placeholder="手机/邮箱/用户名" />
+              <Input ref="userName" type="text" placeholder="手机/用户名" />
               <Input ref="password" type="password" placeholder="密码" />
               <Submit disabled={this.state.signuping} value="登录"/>
             </form>
