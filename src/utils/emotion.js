@@ -7,7 +7,7 @@ if (!window.Promise) {
 fetch('/room/api/emotions', {
 	credentials: 'include'
 }).then(res => {
-	res.json().then(function(json) {
+	res.json().then((json) => {
     for ( let i in json) {
     	if (json[i].category == '') {
 				emotions.push( {

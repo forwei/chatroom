@@ -1,5 +1,7 @@
 import Router from 'koa-router'
-import http from 'http'
+import fs from 'fs'
+
+import request from 'request'
 
 const router = new Router()
 
@@ -41,14 +43,11 @@ router.get('/api/account', async (ctx, next) => {
 router.get('/api/emotions', async (ctx, next) => {
   try{
     let json = await new Promise((resolve, reject) => {
-      http.get('http://api.weibo.com/2/emotions.json?source=1362404091', (res) => {
-        let html = ""
-        res.on("data",(data)=>{
-          html+=data
-        })
-        res.on("end",()=>{
-          resolve(html)
-        })
+      request.get('http://api.weibo.com/2/emotions.json?source=1362404091', (err, res, body) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(body)
       })
     })
     ctx.response.type = 'application/json'
@@ -59,5 +58,51 @@ router.get('/api/emotions', async (ctx, next) => {
   }
 })
 
+//上传图片文件
+router.post('/upload', async (ctx, next) => {
+  let reqBody = ctx.request.body
+  let retData = {error: 1, msg: '上传失败'}
+  ctx.response.type = 'application/json'
+  ctx.body = retData
+
+  if(!reqBody.files || reqBody.files.length == 0)
+    return
+
+  await new Promise((resolve, reject) => {
+    let req = request.post('https://sm.ms/api/upload', (err, res, body) => {
+      body = JSON.parse(body)
+      //删除原文件
+      fs.unlink(reqBody.files.file.path)
+      if (err) {
+        return reject(err)
+      }
+      if(body.code != 'success')
+        return resolve()
+      retData.error = 0
+      retData.msg = '上传成功'
+      retData.data = {
+        height: body.data.height,
+        width: body.data.width,
+        size: body.data.size,
+        url: body.data.url
+      }
+      resolve()
+    })
+    let reqForm = req.form()
+    reqForm.append('smfile', fs.createReadStream(reqBody.files.file.path))
+    reqForm.append('ssl', "true")
+  })
+})
+
 
 export default router
+
+
+
+
+
+
+
+
+
+

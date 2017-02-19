@@ -52,7 +52,7 @@ router.post('/signup', session(), auth(), async(ctx, next) => {
   let user = await db.query('SELECT * FROM `user` WHERE `name` = ? OR `phone` = ?', [reqBody.userName, reqBody.phone])
   if(user.length > 0) {
     retData.error = 1
-    if(user.name = reqBody.userName)
+    if(user.name == reqBody.userName)
       retData.msg = '用户名已存在'
     else
       retData.msg = '手机号码已注册'

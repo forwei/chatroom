@@ -25,7 +25,9 @@ app.use(serve(devConfig.output.path))
 
 //解析body
 app.use(koaBody({
-    multipart: true
+    multipart: true,
+    formLimit: 15,
+    formidable: {uploadDir: __dirname + '/app/uploads'}
 }))
 
 //路由
