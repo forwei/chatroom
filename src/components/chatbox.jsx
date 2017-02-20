@@ -32,7 +32,7 @@ class ChatBox extends React.Component {
 	handleSuccess(data) {
 		if(data.error == 0){
 
-			let messageText = {content: '<img src="'+data.data.url+'"/>', msgType: 1}
+			let messageText = {content: '<img src="'+data.data.url+'"/>', msgType: 2}
 			this.props.dispatch(postMessage(messageText))
 
 			return

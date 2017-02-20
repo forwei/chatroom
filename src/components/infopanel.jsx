@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Skin from './skin'
 import {Signin, Signup} from './sign'
 
+import notifi from './notification'
+
 
 class InfoPanel extends React.Component {
 
@@ -11,6 +13,14 @@ class InfoPanel extends React.Component {
 		this.state = {
 
 		}
+	}
+
+	handleNotifi() {
+		notifi.open({
+			message: 'Notification Title',
+			description: 'This is the content of the notification. ',
+			onClose: () => {console.log('close')}
+		})
 	}
 
 	render() {
@@ -25,6 +35,7 @@ class InfoPanel extends React.Component {
 					<Skin style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}}>换肤</Skin>
 					<Signin style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}}>登录</Signin>
 					<a style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}} href="/signout">登出</a>
+					<a style={{color: '#fff', display: 'inline-block', cursor: 'pointer', marginRight: 10}} href="javascript:;" onClick={this.handleNotifi.bind(this)}>提示</a>
 					<Signup style={{color: '#fff', display: 'inline-block', cursor: 'pointer'}}>注册</Signup>
 				</div>
 			</div>
