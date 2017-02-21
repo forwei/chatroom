@@ -18,7 +18,8 @@ class InfoPanel extends React.Component {
 	handleNotifi() {
 		notifi.open({
 			message: 'Notification Title',
-			description: 'This is the content of the notification. ',
+			description: 'This is :' + Math.random().toString().substr(2),
+			duration: 3,
 			onClose: () => {console.log('close')}
 		})
 	}

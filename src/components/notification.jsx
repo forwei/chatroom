@@ -59,10 +59,7 @@ class Notification extends React.Component {
   }
 
   remove(key) {
-    console.log(key+'---')
     let notices = this.state.notices.filter((notice) => {
-      console.log(notice.key)
-//      return true
       return notice.key !== key
     })
     this.setState({
@@ -71,17 +68,19 @@ class Notification extends React.Component {
   }
 
   render() {
+    let noticeNodes = this.state.notices.map((notice) => {
+      let onClose = () => {
+        this.remove(notice.key)
+        notice.onClose()
+      }
+      return(
+        <Notice key={notice.key} onClose={onClose} duration={notice.duration}>{notice.content}</Notice>
+      )
+    })
+
     return(
-        <div style={{position: 'fixed', right: 8, top: 30, width: '20%'}}>
-        {this.state.notices.map((notice, inx) => {
-          let onClose = () => {
-            this.remove(notice.key)
-            notice.onClose()
-          }
-          return(
-              <Notice key={inx} onClose={onClose} duration={notice.duration}>{notice.content}</Notice>
-          )
-        })}
+      <div style={{position: 'fixed', right: 8, top: 30, width: '20%', display: this.state.notices.length ? 'block' : 'none'}}>
+        {noticeNodes}
       </div>
     )
   }
@@ -103,7 +102,7 @@ let notificationInstance = Notification.newInstance({style: {height: 10}})
 
 function notice(args) {
 
-  let duration = args.duration ? args.duration : 2
+  let duration = args.duration || 0 == args.duration ? args.duration : 2
 
   notificationInstance.notice({
     content: (
